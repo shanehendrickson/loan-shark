@@ -57,6 +57,24 @@ footer .social>a:hover {
   color: var(--secondary-color)
 }
 
+.table-heading {
+  background-color: var(--primary-color);
+}
+
+.table-heading th {
+  color: white;
+}
+
+.ymp-title {
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
+.ymp-amount {
+  font-size: 4rem;
+  font-weight: bolder;
+}
+
 code[class*="language-"],
   pre[class*="language-"] {
     white-space: pre-wrap;
@@ -64,9 +82,9 @@ code[class*="language-"],
     word-wrap: break-word;
   }
 
-/* .sticky-footer {
+.sticky-footer {
   position: sticky;
   left: 0;
   bottom: 0;
   width: 100%;
-} */
+}
