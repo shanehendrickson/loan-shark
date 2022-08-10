@@ -69,15 +69,15 @@
             <form class="row gy-2 gx-3">
               <div class="col-12 py-2">
                 <label for="loanAmount" class="form-label">Loan Amount:</label>
-                <input id="loanAmount" type="number" class="form-control"  placeholder="15000" aria-label="Loan Amount">
+                <input id="loanAmount" type="number" class="form-control"  placeholder="15000" value="15000" aria-label="Loan Amount">
               </div>
               <div class="col-12">
                 <label for="payments" class="form-label">Payments:</label>
-                <input id="payments" type="number" class="form-control"  placeholder="60" aria-label="Payments">
+                <input id="payments" type="number" class="form-control"  placeholder="60" value="60" aria-label="Payments">
               </div>
               <div class="col-12">
                 <label for="rate" class="form-label">Rate:</label>
-                <input id="rate" type="number" class="form-control"  placeholder="3" aria-label="Rate">
+                <input id="rate" type="number" class="form-control"  placeholder="3" value="3.5" aria-label="Rate">
               </div>
               <div class="col-12 d-flex justify-content-end">
                 <button id="btnSubmit" type="button" class="btn btn-outline-info">Calculate</button>
@@ -169,7 +169,7 @@
     </div>
   </footer>
 
-  <template id="lsTemplate">
+  <template id="lcTemplate">
     <tr>
       <td></td>
       <td></td>
@@ -187,6 +187,9 @@
 
   <!-- My Script -->
   <script src="js/site.js"></script>
+  <script>
+    document.getElementById('btnSubmit').addEventListener('click', getValues)
+  </script>
 
 </body>
 
