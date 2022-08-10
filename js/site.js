@@ -16,6 +16,8 @@ function loanCalc(balance, term, rate) {
   let remBal = balance;
   let prevInt = 0;
   let returnArray = [];
+  
+  let tmp = (((balance) * (rate/1200) / (1 - Math.pow((1 + rate/1200), -term))));
 
   
 
@@ -25,7 +27,6 @@ function loanCalc(balance, term, rate) {
 
     //calculate total  payment, interest payment, principal payment, and new balance
     let month = i;
-    let tmp = (((balance) * (rate/1200) / (1 - Math.pow((1 + rate/1200), -term))));
     let intPay = (remBal * (rate/1200));
     let princePay = (tmp - intPay);
     prevInt = (prevInt + intPay);
@@ -33,9 +34,22 @@ function loanCalc(balance, term, rate) {
 
     returnArray.push(month, tmp.toFixed(2), intPay.toFixed(2), princePay.toFixed(2), prevInt.toFixed(2), remBal.toFixed(2));
   }
-  
+  let totInt = parseFloat((returnArray[returnArray.length - 2]))
+
+  const totIntDisplay = document.getElementById('total-interest');
+  const totBalDisplay = document.getElementById('total-principal');
+  const totCostDisplay = document.getElementById('total-cost');
+  const monPayDisplay = document.getElementById('monthly-payment');
+
+  totIntDisplay.innerHTML = totInt;
+  totBalDisplay.innerHTML = balance;
+  totCostDisplay.innerHTML = totInt + balance;
+  monPayDisplay.innerHTML = tmp.toFixed(2);
+
   return returnArray;
 }
+
+
 
 // print new values to page
 function displayData(lcArray) {
@@ -58,3 +72,4 @@ function displayData(lcArray) {
     tableBody.appendChild(tableRow);
   }
 }
+
