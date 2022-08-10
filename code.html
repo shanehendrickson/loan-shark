@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project by Shane Hendrickson</title>
+    <title>Shark Tooth Loans by Shane Hendrickson</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +24,7 @@
   <!-- ==== Nav Section ==== -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top">
       <div class="container-fluid">
-          <a class="navbar-brand" href="index.html"><img src="img/SH_white.svg" class="d-inline-block align-text-bottom" width="30" height="24" alt="Shane Hendrickson Logo"> APP NAME</a>
+          <a class="navbar-brand" href="index.html"><img src="img/SH_white.svg" class="d-inline-block align-text-bottom" width="30" height="24" alt="Shane Hendrickson Logo"> SHARK TOOTH LOANS</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
               aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
                       <a class="nav-link active" aria-current="page" href="code.html">Code</a>
                   </li>                
                   <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="#">Repo</a>
+                    <a class="nav-link" target="_blank" href="https://github.com/shanehendrickson/loan-shark">Repo</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" target="_blank" href="#">Shane</a>
@@ -58,17 +58,125 @@
         <div class="col-lg-8">
           <pre class="line-numbers">
             <code class="language-javascript">
-              // Call Hello World
-              function HelloWorld() {
-                alert("Hello World");
-              }
+              // get values from page
+function getValues() {
+  let balance = parseInt(document.getElementById('loanAmount').value);
+  let term = parseInt(document.getElementById('payments').value);
+  let rate = parseFloat(document.getElementById('rate').value);
+
+  let lcArray = loanCalc(balance, term, rate);
+  displayData(lcArray);
+}
+
+
+
+// calculate needed values
+function loanCalc(balance, term, rate) {
+  // set initial remaining balance to original balance. this will change
+  let remBal = balance;
+  let prevInt = 0;
+  let returnArray = [];
+  
+  let tmp = (((balance) * (rate/1200) / (1 - Math.pow((1 + rate/1200), -term))));
+
+  
+
+
+  for(let i = 1; i <= term; i++) {   
+    
+
+    //calculate total  payment, interest payment, principal payment, and new balance
+    let month = i;
+    let intPay = (remBal * (rate/1200));
+    let princePay = (tmp - intPay);
+    prevInt = (prevInt + intPay);
+    remBal = (remBal - princePay);
+
+    returnArray.push(month, tmp.toFixed(2), intPay.toFixed(2), princePay.toFixed(2), prevInt.toFixed(2), remBal.toFixed(2));
+  }
+  let totInt = parseFloat((returnArray[returnArray.length - 2]))
+
+  const totIntDisplay = document.getElementById('total-interest');
+  const totBalDisplay = document.getElementById('total-principal');
+  const totCostDisplay = document.getElementById('total-cost');
+  const monPayDisplay = document.getElementById('monthly-payment');
+
+  totIntDisplay.innerHTML = totInt;
+  totBalDisplay.innerHTML = balance;
+  totCostDisplay.innerHTML = totInt + balance;
+  monPayDisplay.innerHTML = tmp.toFixed(2);
+
+  return returnArray;
+}
+
+
+
+// print new values to page
+function displayData(lcArray) {
+  let tableBody = document.getElementById('results');
+  let templateRow = document.getElementById('lcTemplate');
+
+  tableBody.innerHTML = 
+  INSERT NOTE HERE
+
+  for (let index = 0; index < lcArray.length; index += 6) {
+    let tableRow = document.importNode(templateRow.content, true);
+
+    let rowCols = tableRow.querySelectorAll('td');
+    rowCols[0].textContent = lcArray[index];
+    rowCols[1].textContent = lcArray[index+1];
+    rowCols[2].textContent = lcArray[index+2];
+    rowCols[3].textContent = lcArray[index+3];
+    rowCols[4].textContent = lcArray[index+4];
+    rowCols[5].textContent = lcArray[index+5];
+
+    tableBody.appendChild(tableRow);
+  }
+}
+
+
             </code>
           </pre>
         </div>
         <div class="col-lg-4">
-          <p>The Code is structure in one function.</p>
-          <h5>Hello World</h5>
-          <p>Hello World is a function that displays an alert with a message of "Hello World".</p>
+          <h5>Shark Tooth Loans</h5>
+          <p>A Loan Calculator</p>
+          <h6>1-9</h6>
+          <p>This function grabs the three values the user can enter on the page and stores them each in their own variables. Those variables are then passed into a function called loanCalc which itself is saved as the variable lcArray. The function displayData is then called and passed the value of that variable.
+          </p>
+          <h6>14 - 20</h6>
+          <p>Now I define the function loanCalc with those same variables from before. I need to establish a few variabes before anything else though. Since I'll need access to the remaining balance  at the beginning and after each iteration, I first just set it to the same value as balance. I also create a variable to store the previous interest (prevInt) and start it at 0. Next, I create the array that I'll be storing all the new data in. Finally, I set tmp (total monthly payment) to the forumla that will calculate that based on the user inputs. </p>
+          <h6>25 - 33</h6>
+          <p>This for loop will iterate the same amount of times as the value of 'term', that is, the number of payments. It does several things each time: create a variable for the payment number, the interest paid (based on a forumla), and the principal paid (based on a formula). It also updates the values of prevInt (previous Interest) and remBal (remaining balance).</p>
+          <h6>35</h6>
+          <p>Now, we're taking all those variables we created or updated and pushing them into the current index before moving on to the next</p>
+          <h6>37</h6>
+          <p>I needed the value of the very last entry that will be in the "total interest" column of the table. So here, I just grabbed it by looking at the total length of the resulting array and grabbing the value I needed based on it's location.</p>
+          <h6>39 - 50</h6>
+          <p>I need some values to be displayed in specific locations on the page, so I assigned the IDs of those elements and stored them in variables. Then I write those values to the page by setting the innerHTML to those values.</p>
+          <h6>55 - 57</h6>
+          <p>Finally I'm defining displayData and passing it the variable that contains the previous function. This allows me to actually use all that data. In line 56 I'm grabbing the ID of the page element where I want the table to be displayed. In line 57 I'm grabbing the ID of the template I'll use to actually format the data.</p>
+          <h6>59 - 60</h6>
+          <p>So now I want to write some information to the correct location on the page. First, I want the top row of the table as it appears before the user has clicked the button to generate data. HTML doesn't format correctly in the code display, so here's what actually exists on line 60:</p>
+
+<pre>
+  <code>
+    '&lt;tr class="table-heading"&gt;
+      &lt;th&gt;Month&lt;/th&gt;
+      &lt;th&gt;Payment&lt;/th&gt;
+      &lt;th&gt;Principal&lt;/th&gt;
+      &lt;th&gt;Interest&lt;/th&gt;
+      &lt;th&gt;Total Interest&lt;/th&gt;
+      &lt;th&gt;Balance&lt;/th&gt;
+      &lt;/tr&gt;'
+  </code>
+</pre>
+          <p>This is what's first being inserted with 'innerHTML' and is basically just to preserve the top row of the table.</p>
+
+          <h6>62-75</h6>
+          <p>Finally, all the data stored in the array is being passed one index at a time into a table cell. I'm looping in increments of six because there are six columns on the table, so the first entry of every loop will get placed in the first row, the second in the second, and so on. Then, this loop starts over and continues iterating through the array.</p>
+
+          
         </div>
       </div>
     </div>
