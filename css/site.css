@@ -1,8 +1,8 @@
 :root {
-  --primary-color: #1d5888;
-  --secondary-color: #ff993b;
-  --dark-color: #292929;
-  --white-color: #dff3e4;
+  --primary-color: #dc3545;
+  --secondary-color: #1d5888;
+  --dark-color: #212529;
+  --white-color: #e9ecef;
 }
 
 body {
@@ -24,7 +24,7 @@ footer {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--primary-color);
+  color: var(--dark-color);
 }
 
 footer .social>a {
@@ -34,7 +34,7 @@ footer .social>a {
 
 footer .social>a:hover {
   opacity: 0.9;
-  color: var(--secondary-color)
+  color: var(--primary-color)
 }
 
 .bsicon {
